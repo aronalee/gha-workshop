@@ -1,0 +1,37 @@
+# github action 이름
+name: 'SWM GitHub Actions Basic'
+
+# 어떤 이벤트가 발생하였을 때 발생할 것이냐.
+on: push
+jobs:
+  first-job:
+    name: 'First Job'
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Say Hello World 1
+      shell: bash
+      run: |
+        echo "Hello World from step 1"
+
+    - name: Say Hello World 2
+      shell: pwsh
+      run: |
+        echo "Hello World from step 2"
+  second-job:
+    name: 'Second Job'
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Say Hello World 3
+      shell: bash
+      run: |
+        echo "Hello World from step 3"
+
+    - name: Say Hello World 4
+      shell: pwsh
+      run: |
+        echo "Hello World from step 4"
+  
