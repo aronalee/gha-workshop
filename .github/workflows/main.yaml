@@ -14,7 +14,7 @@ jobs:
       run: |
         curl -X POST https://webexapis.com/v1/messages \
              -H 'Authorization: Bearer ${{secrets.WEBEX_TOKEN}}' \
-             -H 'Content-type: application.json' \
+             -H 'Content-type: application/json' \
              -d '{
                 "roomId":"${{secrets.WEBEX_ROOM_ID}}",
                 "text": "test - From Github Action"
