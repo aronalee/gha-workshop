@@ -4,25 +4,54 @@ name: 'SWM GitHub Actions Basic'
 on: push
 
 jobs:
-  first-job:
-    name: 'First Job'
-    
-    strategy:
-      matrix:
-        os: ["ubuntu-latest", "windows-latest","macos-latest"]
-        nodejs: ["16","18"]
-    runs-on: ${{matrix.os}}
+  build-test:
+    name: 'build test'
+    runs-on: 'ubuntu-latest'
 
     steps:
-    - name: Say Hello World 1 - ${{matrix.os}}
+    - name: Say Hello World
       shell: bash
       run: |
-        echo "OS: ${{matrix.os}}"
-        echo "nodejs version: ${{matrix.nodejs}}"
-    - name: Say Hello World 2 - ${{matrix.os}}
-      if: matrix.os =='windows-latest' && matrix.nodejs=='16'
-      shell: bash
-      run: |
-        echo "OS: ${{matrix.os}}"
-        echo "nodejs version: ${{matrix.nodejs}}"
+        echo "Hello World"
+  deploy-dev:
+    name: 'deploy dev'
+    needs:
+      - build-test
+    runs-on: 'ubuntu-latest'
 
+    steps:
+    - name: Say Hello World
+      shell: bash
+      run: |
+        echo "Hello World"
+  deploy-staging1:
+    name: 'deploy staging1'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - deploy-prod
+    steps:
+    - name: Say Hello World
+      shell: bash
+      run: |
+        echo "Hello World"
+  deploy-staging2:
+    name: 'deploy staging2'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - deploy-prod
+    steps:
+    - name: Say Hello World
+      shell: bash
+      run: |
+        echo "Hello World"
+  deploy-prod:
+    name: 'deploy prod'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - deploy-staging1
+      - deploy-staging2
+    steps:
+    - name: Say Hello World
+      shell: bash
+      run: |
+        echo "Hello World"
