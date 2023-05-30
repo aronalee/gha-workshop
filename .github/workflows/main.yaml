@@ -3,10 +3,6 @@ name: 'SWM GitHub Actions Basic'
 
 on: push
 
-# global env
-env:
-  GLOBAL_LEVEL: 'GLOBAL ENV VALUE' 
-
 jobs:
   first-job:
     name: 'First Job'
@@ -23,3 +19,10 @@ jobs:
       run: |
         echo "OS: ${{matrix.os}}"
         echo "nodejs version: ${{matrix.nodejs}}"
+    - name: Say Hello World 2 - ${{matrix.os}}
+      if: matrix.os =='windows.latest'
+      shell: bash
+      run: |
+        echo "OS: ${{matrix.os}}"
+        echo "nodejs version: ${{matrix.nodejs}}"
+
