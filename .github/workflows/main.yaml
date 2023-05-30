@@ -22,13 +22,13 @@ jobs:
         STEP_LEVEL_1: 'Step LEVEL VALUE 2'
       run: |
         echo "Hello World from step 1"
-        echo  "GLOBAL: $GLOBAL_LEVEL"
-        echo  "JOB 1: ${{ ENV.JOB_LEVEL_1}}"
-        echo  "JOB 2: ${{ ENV.JOB_LEVEL_2}}"
-        echo  "STEP 1: ${{ env.STEP_LEVEL_1}}"
-        echo  "STEP 2: ${{ env.STEP_LEVEL_2}}"
-        echo  "STEP 3: ${{ env.STEP_LEVEL_3}}"
-        echo  "STEP 4: ${{ env.STEP_LEVEL_4}}"
+        # 쉘 명령어를 이용한 저장
+        randomValue="swm(echo $RANDOM)"
+        # github action을 이용한 저장
+        # $GITHUB_ENV: job를 실행할 때만 동작하는 tmp파일.
+        # 동작을 하고 저장한 다음에 다음 step에 전달 가능
+        # step level scop를 가진다.
+        echo "STEP_VALUE=$randomValue" >> $GITHUB_ENV
 
     - name: Say Hello World 2
       shell: pwsh
@@ -36,45 +36,4 @@ jobs:
          STEP_LEVEL_2: 'Step LEVEL VALUE 2'
       run: |
         echo "Hello World from step 2"
-        echo  "GLOBAL: $env:GLOBAL_LEVEL"
-        echo  "JOB 1: ${{ ENV.JOB_LEVEL_1}}"
-        echo  "JOB 2: ${{ ENV.JOB_LEVEL_2}}"
-        echo  "STEP 1: ${{ env.STEP_LEVEL_1}}"
-        echo  "STEP 2: ${{ env.STEP_LEVEL_2}}"
-        echo  "STEP 3: ${{ env.STEP_LEVEL_3}}"
-        echo  "STEP 4: ${{ env.STEP_LEVEL_4}}"
-  second-job:
-    name: 'Second Job'
-
-    runs-on: ubuntu-latest
-    env:
-      JOB_LEVEL_2: 'JOB LEVEL VALUE 2'
-    steps:
-    - name: Say Hello World 3
-      shell: bash
-      env: 
-        STEP_LEVEL_3: 'Step LEVEL VALUE 3'
-      run: |
-        echo "Hello World from step 3"
-        echo  "GLOBAL: $GLOBAL_LEVEL"
-        echo  "JOB 1: ${{ ENV.JOB_LEVEL_1}}"
-        echo  "JOB 2: ${{ ENV.JOB_LEVEL_2}}"
-        echo  "STEP 1: ${{ env.STEP_LEVEL_1}}"
-        echo  "STEP 2: ${{ env.STEP_LEVEL_2}}"
-        echo  "STEP 3: ${{ env.STEP_LEVEL_3}}"
-        echo  "STEP 4: ${{ env.STEP_LEVEL_4}}"
-
-
-    - name: Say Hello World 4
-      shell: pwsh
-      env: 
-        STEP_LEVEL_2: 'Step LEVEL VALUE 4'
-      run: |
-        echo "Hello World from step 4"
-        echo  "GLOBAL: $GLOBAL_LEVEL"
-        echo  "JOB 1: ${{ ENV.JOB_LEVEL_1}}"
-        echo  "JOB 2: ${{ ENV.JOB_LEVEL_2}}"
-        echo  "STEP 1: ${{ env.STEP_LEVEL_1}}"
-        echo  "STEP 2: ${{ env.STEP_LEVEL_2}}"
-        echo  "STEP 3: ${{ env.STEP_LEVEL_3}}"
-        echo  "STEP 4: ${{ env.STEP_LEVEL_4}}"
+        echo "STEP_VALUE: ${{env.STEP_VALUE}}"
