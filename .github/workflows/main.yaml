@@ -22,12 +22,7 @@ jobs:
         STEP_LEVEL_1: 'Step LEVEL VALUE 2'
       run: |
         echo "Hello World from step 1"
-        # 쉘 명령어를 이용한 저장
         randomValue="swm(echo $RANDOM)"
-        # github action을 이용한 저장
-        # $GITHUB_ENV: job를 실행할 때만 동작하는 tmp파일.
-        # 동작을 하고 저장한 다음에 다음 step에 전달 가능
-        # step level scop를 가진다.
         echo "STEP_VALUE=$randomValue" >> $GITHUB_ENV
 
     - name: Say Hello World 2
